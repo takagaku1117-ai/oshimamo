@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* 配色は design/story_map.html に合わせる（白い紙・黒インク・MVP の赤） */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-paper: #f6f7f9;
+  --color-panel: #ffffff;
+  --color-ink: #16181d;
+  --color-ink-soft: #565b66;
+  --color-line: #c9ccd3;
+  --color-tone: #dfe2e8;
+  --color-accent: #d6293e;
+  --color-accent-wash: #fde9ec;
+  --font-sans: var(--font-zen-kaku), "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-display:
+    var(--font-dela-gothic), "Hiragino Kaku Gothic StdN", "Yu Gothic",
+    sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* スクリーントーンの点 */
+  background-color: var(--color-paper);
+  background-image: radial-gradient(var(--color-tone) 1px, transparent 1.2px);
+  background-size: 9px 9px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.7;
 }

@@ -1,0 +1,816 @@
+<title>推しマモ サイトマップ</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=M+PLUS+1+Code:wght@500;700&display=swap"
+/>
+<style>
+  /* Layout: 漫画原稿の「コマ割り」。横＝行動フロー（バックボーン）、縦＝リリース帯。帯の境目は太い区切り線 */
+  :root {
+    --paper: #f6f7f9;
+    --panel: #ffffff;
+    --ink: #16181d;
+    --ink-soft: #565b66;
+    --line: #c9ccd3;
+    --tone: #dfe2e8;
+    --mvp: #d6293e;
+    --mvp-wash: #fde9ec;
+    --v1: #2c5fd6;
+    --v1-wash: #e7eefd;
+    --v2: #6b6f78;
+    --v2-wash: #eceef1;
+    --back-bg: #16181d;
+    --back-fg: #ffffff;
+    --display:
+      "Dela Gothic One", "Hiragino Kaku Gothic StdN", "Yu Gothic", sans-serif;
+    --body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+    --mono: "M PLUS 1 Code", ui-monospace, "Menlo", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #121419;
+      --panel: #1b1e25;
+      --ink: #eef0f4;
+      --ink-soft: #a3a8b3;
+      --line: #353a45;
+      --tone: #262a33;
+      --mvp: #ff6b7c;
+      --mvp-wash: #3a1e24;
+      --v1: #7ea3ff;
+      --v1-wash: #1c2640;
+      --v2: #a3a8b3;
+      --v2-wash: #23262e;
+      --back-bg: #eef0f4;
+      --back-fg: #121419;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #121419;
+    --panel: #1b1e25;
+    --ink: #eef0f4;
+    --ink-soft: #a3a8b3;
+    --line: #353a45;
+    --tone: #262a33;
+    --mvp: #ff6b7c;
+    --mvp-wash: #3a1e24;
+    --v1: #7ea3ff;
+    --v1-wash: #1c2640;
+    --v2: #a3a8b3;
+    --v2-wash: #23262e;
+    --back-bg: #eef0f4;
+    --back-fg: #121419;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--paper);
+    background-image: radial-gradient(var(--tone) 1px, transparent 1.2px);
+    background-size: 9px 9px;
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-block: 36px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid;
+    gap: 28px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+
+  /* ヘッダー */
+  .head {
+    display: grid;
+    gap: 10px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.2;
+  }
+  h1 small {
+    display: block;
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .lede {
+    max-width: 62ch;
+  }
+
+  /* ペルソナ切替 */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tab {
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2.5px solid var(--ink);
+    background: var(--panel);
+    color: var(--ink);
+    padding: 8px 18px;
+    border-radius: 2px;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition:
+      transform 0.08s,
+      box-shadow 0.08s;
+  }
+  .tab:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .tab[aria-selected="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .tab:focus-visible {
+    outline: 3px solid var(--v1);
+    outline-offset: 3px;
+  }
+
+  /* ペルソナカード */
+  .persona {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    align-items: start;
+    background: var(--panel);
+    border: 2.5px solid var(--ink);
+    padding: 18px 20px;
+  }
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border: 2.5px solid var(--ink);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--display);
+    font-size: 26px;
+    background: var(--tone);
+  }
+  .persona h2 {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .persona .role {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .persona dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 4px 14px;
+    margin: 10px 0 0;
+  }
+  .persona dt {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .persona dd {
+    margin: 0;
+    min-width: 0;
+  }
+
+  /* ストーリーマップ本体 */
+  .map-scroll {
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .map {
+    display: grid;
+    grid-template-columns: 92px repeat(var(--cols), minmax(150px, 1fr));
+    min-width: calc(92px + var(--cols) * 156px);
+    gap: 0 8px;
+  }
+  .corner {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    align-self: end;
+    padding-bottom: 8px;
+  }
+  .step {
+    background: var(--back-bg);
+    color: var(--back-fg);
+    padding: 10px 12px 12px;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .step .n {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+  .step h3 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.3;
+  }
+  .step:not(.last)::after {
+    content: "";
+    position: absolute;
+    right: -9px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 7px solid transparent;
+    border-left: 8px solid var(--back-bg);
+    border-right: 0;
+    z-index: 1;
+  }
+  .lane-label {
+    padding: 12px 8px 12px 0;
+    display: grid;
+    align-content: start;
+    gap: 2px;
+  }
+  .lane-label b {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1;
+  }
+  .lane-label span {
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .lane-mvp b {
+    color: var(--mvp);
+  }
+  .lane-v1 b {
+    color: var(--v1);
+  }
+  .lane-v2 b {
+    color: var(--v2);
+  }
+  .cell {
+    padding-block: 12px;
+    display: grid;
+    gap: 8px;
+    align-content: start;
+  }
+  .divider {
+    grid-column: 1 / -1;
+    height: 0;
+    border-top: 3px dashed var(--line);
+    position: relative;
+  }
+  .divider.mvp {
+    border-top: 4px solid var(--mvp);
+  }
+  .divider span {
+    position: absolute;
+    right: 0;
+    top: -12px;
+    background: var(--paper);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 0 0 0 8px;
+    color: var(--ink-soft);
+  }
+  .divider.mvp span {
+    color: var(--mvp);
+  }
+  .card {
+    background: var(--panel);
+    border: 2px solid var(--ink);
+    padding: 8px 10px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    min-width: 0;
+  }
+  .card b {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .card small {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  .lane-mvp-row .card {
+    border-left: 6px solid var(--mvp);
+    background: var(--mvp-wash);
+  }
+  .lane-v1-row .card {
+    border-left: 6px solid var(--v1);
+  }
+  .lane-v2-row .card {
+    border-left: 6px solid var(--v2);
+    border-style: solid solid solid solid;
+    border-color: var(--line) var(--line) var(--line) var(--v2);
+  }
+  .card.ai::after {
+    content: "AI";
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    border: 1.5px solid currentColor;
+    padding: 0 4px;
+    margin-top: 4px;
+    display: inline-block;
+    color: var(--v1);
+  }
+  .empty {
+    border: 2px dashed var(--line);
+    padding: 8px 10px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* リリースのゴール */
+  .goals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .goal {
+    background: var(--panel);
+    border: 2.5px solid var(--ink);
+    padding: 14px 16px;
+    display: grid;
+    gap: 6px;
+    align-content: start;
+  }
+  .goal .tag {
+    font-family: var(--display);
+    font-size: 22px;
+    line-height: 1;
+  }
+  .goal.mvp .tag {
+    color: var(--mvp);
+  }
+  .goal.v1 .tag {
+    color: var(--v1);
+  }
+  .goal.v2 .tag {
+    color: var(--v2);
+  }
+  .goal .count {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .goal p {
+    font-size: 14px;
+  }
+
+  /* 評価観点 */
+  section h2.sec {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .checks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .check {
+    border-top: 3px solid var(--ink);
+    padding-top: 10px;
+    display: grid;
+    gap: 4px;
+  }
+  .check h3 {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .check p {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .legend i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    vertical-align: -1px;
+    margin-right: 4px;
+  }
+  .foot {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 520px) {
+    .persona {
+      grid-template-columns: 1fr;
+    }
+    .persona dl {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tab {
+      transition: none;
+    }
+  }
+</style>
+
+<style>
+  .tree-box {
+    background: var(--panel);
+    border: 2.5px solid var(--ink);
+    position: relative;
+  }
+  .tree-box pre {
+    margin: 0;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+  .tree-box pre .u {
+    color: var(--ink-soft);
+  }
+  .tree-box pre .m {
+    color: var(--mvp);
+    font-weight: 700;
+  }
+  .tree-box pre .v {
+    color: var(--v1);
+    font-weight: 700;
+  }
+  .copy {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    padding: 4px 12px;
+    cursor: pointer;
+  }
+  .copy:focus-visible {
+    outline: 3px solid var(--v1);
+    outline-offset: 2px;
+  }
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .zone {
+    border-top: 3px solid var(--ink);
+    padding-top: 8px;
+    display: grid;
+    gap: 2px;
+  }
+  .zone b {
+    font-size: 15px;
+  }
+  .zone span {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .table-scroll {
+    overflow-x: auto;
+    border: 2.5px solid var(--ink);
+    background: var(--panel);
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 860px;
+    font-size: 13.5px;
+  }
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  th {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    background: var(--paper);
+    white-space: nowrap;
+  }
+  td code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+  td.name {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  tr.group td {
+    background: var(--tone);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+  }
+  .pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border: 1.5px solid currentColor;
+    white-space: nowrap;
+  }
+  .pill.mvp {
+    color: var(--mvp);
+  }
+  .pill.v1 {
+    color: var(--v1);
+  }
+  .who {
+    white-space: nowrap;
+    font-size: 12.5px;
+  }
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow">SITEMAP ／ PAGE LIST</div>
+    <h1>推しマモ<small>サイトマップとページ一覧表</small></h1>
+    <p class="lede">
+      ユーザーストーリーマップのMVPとv1.0の機能を、ページに割り振りました。v2.0の機能は既存ページに後から足す想定なので、ここには新しいページとして出していません。
+    </p>
+  </header>
+
+  <section>
+    <h2 class="sec">① サイトマップ</h2>
+    <div class="tree-box">
+      <button class="copy" id="copy-tree" type="button">コピー</button>
+      <pre
+        id="tree"
+      >トップページ                          <span class="u">/</span>              <span class="m">MVP</span>
+├── 推し作品を探す                     <span class="u">/works</span>         <span class="v">v1.0</span>
+│   └── 作品詳細                       <span class="u">/works/[id]</span>    <span class="v">v1.0</span>
+├── マイページ（推し一覧）             <span class="u">/me</span>            <span class="m">MVP</span>
+│   ├── 推しを登録                     <span class="u">/me/new</span>        <span class="m">MVP</span>
+│   ├── 推し作品の応援ページ           <span class="u">/me/[id]</span>       <span class="m">MVP</span>
+│   │   ├── 掲載順を記録               <span class="u">/me/[id]/rank</span>  <span class="m">MVP</span>
+│   │   └── 紹介ページを作る           <span class="u">/me/[id]/share</span> <span class="m">MVP</span>
+│   ├── 応援カレンダー                 <span class="u">/me/calendar</span>   <span class="v">v1.0</span>
+│   ├── 応援ログ                       <span class="u">/me/log</span>        <span class="m">MVP</span>
+│   └── 通知設定（LINE連携）           <span class="u">/me/settings</span>   <span class="v">v1.0</span>
+├── 紹介ページ（公開）                 <span class="u">/r/[slug]</span>      <span class="m">MVP</span>
+├── 応援のやり方ガイド                 <span class="u">/guide</span>         <span class="v">v1.0</span>
+├── ログイン                           <span class="u">/login</span>         <span class="m">MVP</span>
+└── お問い合わせ                       <span class="u">/contact</span>       <span class="m">MVP</span></pre>
+    </div>
+  </section>
+
+  <div class="zones">
+    <div class="zone">
+      <b>だれでも見られる</b
+      ><span
+        >トップ・紹介ページ・ガイド・作品を探す。紹介される読者ユウはログインせずに使えます。</span
+      >
+    </div>
+    <div class="zone">
+      <b>ログインが必要（/me 以下）</b
+      ><span
+        >推しの登録と応援の記録。ファンのサキが毎週使う場所なので、ログイン後はここが最初に開きます。</span
+      >
+    </div>
+    <div class="zone">
+      <b>2つのペルソナの接点</b
+      ><span
+        >サキが「紹介ページを作る」で作ったページが、公開URLの
+        <code>/r/[slug]</code> になってユウに届きます。</span
+      >
+    </div>
+  </div>
+
+  <section>
+    <h2 class="sec">② ページ一覧表</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>ページ名</th>
+            <th>URL</th>
+            <th>目的</th>
+            <th>主要機能</th>
+            <th>使う人</th>
+            <th>リリース</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="group">
+            <td colspan="6">だれでも見られる</td>
+          </tr>
+          <tr>
+            <td class="name">トップ</td>
+            <td><code>/</code></td>
+            <td>サービスの説明とログインへの入口</td>
+            <td>
+              打ち切りが決まる仕組みの説明 ／ ログインボタン ／ ガイドへのリンク
+            </td>
+            <td class="who">全員</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">紹介ページ（公開）</td>
+            <td><code>/r/[slug]</code></td>
+            <td>ファンが勧めた作品を、新しい読者に知ってもらう</td>
+            <td>
+              推しポイント・ジャンル ／ 公式試し読みと書店へのリンク ／
+              「読んだよ」ボタン
+            </td>
+            <td class="who">ユウ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">ログイン</td>
+            <td><code>/login</code></td>
+            <td>推しの記録をアカウントに保存する</td>
+            <td>Googleでログイン</td>
+            <td class="who">サキ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">お問い合わせ</td>
+            <td><code>/contact</code></td>
+            <td>不具合や作品情報の誤りを受け付ける</td>
+            <td>問い合わせフォーム</td>
+            <td class="who">全員</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">推し作品を探す</td>
+            <td><code>/works</code></td>
+            <td>登録されている作品から推しを見つける</td>
+            <td>キーワード検索 ／ 掲載誌で絞り込み</td>
+            <td class="who">サキ・ユウ</td>
+            <td><span class="pill v1">v1.0</span></td>
+          </tr>
+          <tr>
+            <td class="name">作品詳細</td>
+            <td><code>/works/[id]</code></td>
+            <td>作品の基本情報と、応援しているファンの数を見る</td>
+            <td>表紙・巻数（書誌API） ／ 次の発売日 ／ 「推しに追加」ボタン</td>
+            <td class="who">サキ・ユウ</td>
+            <td><span class="pill v1">v1.0</span></td>
+          </tr>
+          <tr>
+            <td class="name">応援のやり方ガイド</td>
+            <td><code>/guide</code></td>
+            <td>どの応援が連載継続に効くかを知る</td>
+            <td>アンケート・発売1週目の購入・電子版のいいねの解説</td>
+            <td class="who">サキ・ユウ</td>
+            <td><span class="pill v1">v1.0</span></td>
+          </tr>
+          <tr class="group">
+            <td colspan="6">ログインが必要（/me 以下）</td>
+          </tr>
+          <tr>
+            <td class="name">マイページ（推し一覧）</td>
+            <td><code>/me</code></td>
+            <td>推し作品と今週やることを一目で見る</td>
+            <td>
+              推し作品カード ／ 今週の未チェック数 ／ 掲載順が下がった作品の表示
+            </td>
+            <td class="who">サキ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">推しを登録</td>
+            <td><code>/me/new</code></td>
+            <td>応援する作品を追加する</td>
+            <td>タイトル・掲載誌・作者・単行本発売日の入力</td>
+            <td class="who">サキ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">推し作品の応援ページ</td>
+            <td><code>/me/[id]</code></td>
+            <td>1作品ごとに今週の応援を済ませる</td>
+            <td>
+              今週の応援チェックリスト ／ 掲載順の推移グラフ ／
+              発売1週目の強調表示
+            </td>
+            <td class="who">サキ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">掲載順を記録</td>
+            <td><code>/me/[id]/rank</code></td>
+            <td>毎週の掲載順を残してピンチに気づく</td>
+            <td>号数と掲載順の入力 ／ 過去の記録の修正</td>
+            <td class="who">サキ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">紹介ページを作る</td>
+            <td><code>/me/[id]/share</code></td>
+            <td>友達に勧めるページを作って共有する</td>
+            <td>
+              推しポイントの入力 ／ URLのコピー ／
+              「ここから読んで」の話数（v1.0）
+            </td>
+            <td class="who">サキ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">応援ログ</td>
+            <td><code>/me/log</code></td>
+            <td>自分がしてきた応援を振り返る</td>
+            <td>応援した回数 ／ 作品ごとの記録一覧</td>
+            <td class="who">サキ</td>
+            <td><span class="pill mvp">MVP</span></td>
+          </tr>
+          <tr>
+            <td class="name">応援カレンダー</td>
+            <td><code>/me/calendar</code></td>
+            <td>締切と発売日を月単位で確認する</td>
+            <td>アンケート締切・単行本発売日を月表示</td>
+            <td class="who">サキ</td>
+            <td><span class="pill v1">v1.0</span></td>
+          </tr>
+          <tr>
+            <td class="name">通知設定</td>
+            <td><code>/me/settings</code></td>
+            <td>リマインドを受け取る方法を決める</td>
+            <td>LINE連携 ／ 通知のタイミング（前日・当日）</td>
+            <td class="who">サキ</td>
+            <td><span class="pill v1">v1.0</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="foot">
+    ページ数：MVP 9ページ ／ v1.0 で 5ページ追加。URLの [id] は作品ごと、[slug]
+    は紹介ページごとに変わる部分です。
+  </p>
+</div>
+
+<script>
+  document.getElementById("copy-tree").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    const text = document.getElementById("tree").innerText;
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = "コピーしました";
+    } catch (err) {
+      const r = document.createRange();
+      r.selectNodeContents(document.getElementById("tree"));
+      const s = getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      btn.textContent = "選択しました";
+    }
+    setTimeout(() => {
+      btn.textContent = "コピー";
+    }, 1800);
+  });
+</script>
