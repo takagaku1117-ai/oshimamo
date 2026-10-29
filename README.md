@@ -3,7 +3,8 @@
 **推しの連載を、打ち切りから守ろう。**
 連載漫画のファンが、推し作品の「掲載順」を毎週記録して、打ち切りのピンチに早く気づくための応援ナビです。
 
-- 公開URL: （デプロイ後に記入）
+- 公開URL: https://oshimamo.vercel.app
+- GitHub: https://github.com/takagaku1117-ai/oshimamo
 - 要件定義書: [requirements.md](requirements.md)
 
 ![マイページ（推しカードとピンチ表示）](docs/images/mypage.jpg)
