@@ -35,9 +35,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev     # 開発サーバー http://localhost:3000
 npm run build   # 本番ビルド（型チェックも走る）
 npm run lint    # ESLint
+npm test        # tests/*.test.mjs（node:test）。掲載順・ピンチ判定のテスト
 ```
 
-テストはまだない。コミット前に `npm run lint` と `npm run build` が通ることを確認する。
+コミット前に `npm test`・`npm run lint`・`npm run build` が通ることを確認する。判定ロジック（`src/lib/ranking.ts`）を変えたらテストも足す。
 
 ## コードの構成
 

@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import { formatIssue, isPinch, sortByIssue } from "@/lib/ranking";
+import { getRankings } from "@/lib/rankings";
 import { getWork } from "@/lib/work";
+import { deleteRanking } from "./rank-actions";
+import { RankingChart } from "./ranking-chart";
 
 export const metadata: Metadata = { title: "推し作品｜推しマモ" };
 
@@ -25,11 +29,13 @@ export default function WorkPage({ params }: PageProps<"/me/[id]">) {
 async function WorkDetail({ params }: Pick<PageProps<"/me/[id]">, "params">) {
   const { id } = await params;
   const work = await getWork(id);
+  const rankings = sortByIssue(await getRankings(work.id));
+  const pinch = isPinch(rankings);
   const sub = [work.magazine, work.author].filter(Boolean).join(" ／ ");
 
   return (
     <>
-      <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
+      <header className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <h1 className="font-display text-3xl break-words">{work.title}</h1>
           {sub && <p className="text-ink-soft">{sub}</p>}
@@ -42,12 +48,64 @@ async function WorkDetail({ params }: Pick<PageProps<"/me/[id]">, "params">) {
         </Link>
       </header>
 
-      <section className="border-[2.5px] border-dashed border-ink bg-panel p-6 text-center">
-        <p className="mb-1 font-bold">掲載順の記録</p>
-        <p className="text-sm text-ink-soft">
-          毎週の掲載順の記録とグラフは、次のステップで作ります。
+      {/* F-06 */}
+      {pinch && (
+        <p
+          role="status"
+          className="mb-6 border-[2.5px] border-accent bg-accent-wash p-4 font-bold text-accent"
+        >
+          <span className="mr-2 inline-block bg-accent px-2 py-0.5 font-display text-white">
+            ピンチ
+          </span>
+          2号続けて掲載順が下がっています。今週のアンケートで応援しよう！
         </p>
+      )}
+
+      <section className="mb-6 border-[2.5px] border-ink bg-panel p-4 shadow-[4px_4px_0_var(--color-ink)] sm:p-5">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-xl">掲載順の推移</h2>
+          <Link
+            href={`/me/${work.id}/rank`}
+            className="border-[2.5px] border-ink bg-accent px-4 py-1.5 text-sm font-bold text-white shadow-[3px_3px_0_var(--color-ink)] hover:-translate-x-px hover:-translate-y-px"
+          >
+            ＋ 掲載順を記録
+          </Link>
+        </div>
+        {rankings.length >= 2 ? (
+          <RankingChart points={rankings} pinch={pinch} />
+        ) : (
+          <p className="py-8 text-center text-sm text-ink-soft">
+            {rankings.length === 0
+              ? "まだ記録がありません。毎週の掲載順を記録しましょう。"
+              : "2号分記録すると、グラフで推移が見られます。"}
+          </p>
+        )}
       </section>
+
+      {rankings.length > 0 && (
+        <section aria-labelledby="records">
+          <h2 id="records" className="mb-2 font-bold">
+            記録（新しい順）
+          </h2>
+          <ul className="divide-y divide-line border-[2.5px] border-ink bg-panel">
+            {[...rankings].reverse().map((r) => (
+              <li key={r.id} className="flex items-center gap-3 px-4 py-2">
+                <span className="flex-1">{formatIssue(r)}</span>
+                <span className="font-bold">{r.position}番目</span>
+                <form action={deleteRanking.bind(null, work.id, r.id)}>
+                  <button
+                    type="submit"
+                    aria-label={`${formatIssue(r)}の記録を削除`}
+                    className="text-sm text-ink-soft underline hover:text-accent"
+                  >
+                    削除
+                  </button>
+                </form>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </>
   );
 }

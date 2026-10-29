@@ -28,3 +28,10 @@ export function latestRanking(points: RankingPoint[]) {
     change: previous ? previous.position - latest.position : null,
   };
 }
+
+// F-06: 直近3号で「下がる → 下がる」ならピンチ（例 5→8→11）。横ばいや一度でも上がったらピンチではない
+export function isPinch(points: RankingPoint[]) {
+  const [a, b, c] = sortByIssue(points).slice(-3);
+  if (!c) return false;
+  return a.position < b.position && b.position < c.position;
+}

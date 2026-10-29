@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { formatIssue, latestRanking, type RankingPoint } from "@/lib/ranking";
+import {
+  formatIssue,
+  isPinch,
+  latestRanking,
+  type RankingPoint,
+} from "@/lib/ranking";
 
 type Props = {
   work: {
@@ -11,18 +16,24 @@ type Props = {
   };
 };
 
-// F-03: 推しカード（最新の掲載順と前回からの上下）
+// F-03: 推しカード（最新の掲載順と前回からの上下）、F-06: ピンチラベル
 export function WorkCard({ work }: Props) {
   const ranking = latestRanking(work.rankings);
+  const pinch = isPinch(work.rankings);
   const sub = [work.magazine, work.author].filter(Boolean).join(" ／ ");
 
   return (
     <li>
       <Link
         href={`/me/${work.id}`}
-        className="flex items-center gap-4 border-[2.5px] border-ink bg-panel p-4 shadow-[4px_4px_0_var(--color-ink)] transition-transform hover:-translate-x-px hover:-translate-y-px"
+        className={`flex items-center gap-4 border-[2.5px] bg-panel p-4 shadow-[4px_4px_0_var(--color-ink)] transition-transform hover:-translate-x-px hover:-translate-y-px ${pinch ? "border-accent" : "border-ink"}`}
       >
         <div className="min-w-0 flex-1">
+          {pinch && (
+            <span className="mb-1 inline-block bg-accent px-2 py-0.5 font-display text-xs text-white">
+              ピンチ
+            </span>
+          )}
           <h2 className="truncate text-lg font-bold">{work.title}</h2>
           {sub && <p className="truncate text-sm text-ink-soft">{sub}</p>}
         </div>
