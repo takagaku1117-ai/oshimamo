@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "./actions";
+import { WorkCard } from "./work-card";
 
 export const metadata: Metadata = { title: "マイページ｜推しマモ" };
 
@@ -13,36 +14,63 @@ export default function MyPage() {
       <Link href="/" className="mb-8 inline-block font-display text-2xl">
         推しマモ
       </Link>
-      <h1 className="mb-6 font-display text-3xl">マイページ</h1>
       {/* cookie を読むのでリクエストごとに描画する（Cache Components） */}
       <Suspense fallback={<p className="text-ink-soft">読み込み中…</p>}>
-        <Account />
+        <MyWorks />
       </Suspense>
     </main>
   );
 }
 
-async function Account() {
+async function MyWorks() {
   const supabase = await createClient();
-  const { data } = await supabase.auth.getClaims();
+  const { data: auth } = await supabase.auth.getClaims();
   // proxy のチェックは cookie を見るだけなので、ここでも確かめる
-  if (!data?.claims) redirect("/login?next=/me");
+  if (!auth?.claims) redirect("/login?next=/me");
+
+  const { data: works, error } = await supabase
+    .from("works")
+    .select(
+      "id, title, magazine, author, rankings(issue_year, issue_no, position)",
+    )
+    .order("created_at", { ascending: false });
+  if (error) throw error;
 
   return (
-    <section className="border-[2.5px] border-ink bg-panel p-5 shadow-[4px_4px_0_var(--color-ink)]">
-      <p className="mb-1 text-sm text-ink-soft">ログイン中</p>
-      <p className="mb-4 font-bold break-all">{data.claims.email}</p>
-      <p className="mb-5 text-sm text-ink-soft">
-        推し作品の登録はこれから作ります（ステップ4）。
-      </p>
-      <form action={signOut}>
-        <button
-          type="submit"
-          className="border-[2.5px] border-ink bg-panel px-5 py-2 text-sm font-bold shadow-[3px_3px_0_var(--color-ink)] hover:-translate-x-px hover:-translate-y-px"
+    <>
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <h1 className="font-display text-3xl">マイページ</h1>
+        <Link
+          href="/me/new"
+          className="border-[2.5px] border-ink bg-accent px-5 py-2 font-bold text-white shadow-[3px_3px_0_var(--color-ink)] hover:-translate-x-px hover:-translate-y-px"
         >
-          ログアウト
-        </button>
-      </form>
-    </section>
+          ＋ 推しを登録
+        </Link>
+      </div>
+
+      {works.length === 0 ? (
+        <section className="border-[2.5px] border-dashed border-ink bg-panel p-6 text-center">
+          <p className="mb-1 font-bold">まだ推しがいません</p>
+          <p className="text-sm text-ink-soft">
+            「推しを登録」から、応援したい連載を追加しましょう。
+          </p>
+        </section>
+      ) : (
+        <ul className="grid gap-4">
+          {works.map((work) => (
+            <WorkCard key={work.id} work={work} />
+          ))}
+        </ul>
+      )}
+
+      <footer className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4 text-sm text-ink-soft">
+        <p className="break-all">{auth.claims.email} でログイン中</p>
+        <form action={signOut}>
+          <button type="submit" className="font-bold underline hover:text-ink">
+            ログアウト
+          </button>
+        </form>
+      </footer>
+    </>
   );
 }
