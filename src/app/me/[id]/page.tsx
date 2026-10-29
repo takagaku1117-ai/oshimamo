@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { formatIssue, isPinch, sortByIssue } from "@/lib/ranking";
+import { getThisWeekCheers } from "@/lib/cheers";
 import { getRankings } from "@/lib/rankings";
 import { getWork } from "@/lib/work";
+import { CheerChecklist } from "./cheer-checklist";
 import { deleteRanking } from "./rank-actions";
 import { RankingChart } from "./ranking-chart";
 
@@ -31,6 +33,7 @@ async function WorkDetail({ params }: Pick<PageProps<"/me/[id]">, "params">) {
   const work = await getWork(id);
   const rankings = sortByIssue(await getRankings(work.id));
   const pinch = isPinch(rankings);
+  const cheers = (await getThisWeekCheers(work.id)).get(work.id) ?? [];
   const sub = [work.magazine, work.author].filter(Boolean).join(" ／ ");
 
   return (
@@ -60,6 +63,9 @@ async function WorkDetail({ params }: Pick<PageProps<"/me/[id]">, "params">) {
           2号続けて掲載順が下がっています。今週のアンケートで応援しよう！
         </p>
       )}
+
+      {/* F-08（発展アイデア①） */}
+      <CheerChecklist workId={work.id} checked={cheers} pinch={pinch} />
 
       <section className="mb-6 border-[2.5px] border-ink bg-panel p-4 shadow-[4px_4px_0_var(--color-ink)] sm:p-5">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">

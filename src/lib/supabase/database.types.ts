@@ -15,6 +15,38 @@ export type Database = {
   };
   public: {
     Tables: {
+      cheers: {
+        Row: {
+          checked_at: string;
+          id: string;
+          kind: string;
+          week_start: string;
+          work_id: string;
+        };
+        Insert: {
+          checked_at?: string;
+          id?: string;
+          kind: string;
+          week_start: string;
+          work_id: string;
+        };
+        Update: {
+          checked_at?: string;
+          id?: string;
+          kind?: string;
+          week_start?: string;
+          work_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "cheers_work_id_fkey";
+            columns: ["work_id"];
+            isOneToOne: false;
+            referencedRelation: "works";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       rankings: {
         Row: {
           id: string;

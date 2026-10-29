@@ -5,6 +5,7 @@ import {
   latestRanking,
   type RankingPoint,
 } from "@/lib/ranking";
+import { CHEER_KINDS } from "@/lib/week";
 
 type Props = {
   work: {
@@ -14,10 +15,12 @@ type Props = {
     author: string | null;
     rankings: RankingPoint[];
   };
+  // F-08: 今週チェックした応援の数
+  cheerCount: number;
 };
 
 // F-03: 推しカード（最新の掲載順と前回からの上下）、F-06: ピンチラベル
-export function WorkCard({ work }: Props) {
+export function WorkCard({ work, cheerCount }: Props) {
   const ranking = latestRanking(work.rankings);
   const pinch = isPinch(work.rankings);
   const sub = [work.magazine, work.author].filter(Boolean).join(" ／ ");
@@ -36,6 +39,12 @@ export function WorkCard({ work }: Props) {
           )}
           <h2 className="truncate text-lg font-bold">{work.title}</h2>
           {sub && <p className="truncate text-sm text-ink-soft">{sub}</p>}
+          <p
+            className={`mt-1 text-xs font-bold ${cheerCount === CHEER_KINDS.length ? "text-accent" : "text-ink-soft"}`}
+          >
+            今週の応援 {cheerCount}/{CHEER_KINDS.length}
+            {cheerCount === CHEER_KINDS.length && " ✓"}
+          </p>
         </div>
         <div className="shrink-0 text-right">
           {ranking ? (

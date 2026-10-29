@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { getThisWeekCheers } from "@/lib/cheers";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "./actions";
 import { WorkCard } from "./work-card";
@@ -35,6 +36,7 @@ async function MyWorks() {
     )
     .order("created_at", { ascending: false });
   if (error) throw error;
+  const cheers = await getThisWeekCheers();
 
   return (
     <>
@@ -58,7 +60,11 @@ async function MyWorks() {
       ) : (
         <ul className="grid gap-4">
           {works.map((work) => (
-            <WorkCard key={work.id} work={work} />
+            <WorkCard
+              key={work.id}
+              work={work}
+              cheerCount={cheers.get(work.id)?.length ?? 0}
+            />
           ))}
         </ul>
       )}
