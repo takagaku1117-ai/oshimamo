@@ -53,15 +53,21 @@ async function WorkDetail({ params }: Pick<PageProps<"/me/[id]">, "params">) {
 
       {/* F-06 */}
       {pinch && (
-        <p
+        <div
           role="status"
-          className="mb-6 border-[2.5px] border-accent bg-accent-wash p-4 font-bold text-accent"
+          className="mb-6 border-[2.5px] border-accent bg-accent-wash p-4 text-accent"
         >
-          <span className="mr-2 inline-block bg-accent px-2 py-0.5 font-display text-white">
-            ピンチ
-          </span>
-          2号続けて掲載順が下がっています。今週のアンケートで応援しよう！
-        </p>
+          <p className="font-bold">
+            <span className="mr-2 inline-block bg-accent px-2 py-0.5 font-display text-white">
+              ピンチ
+            </span>
+            2号続けて掲載順が下がっています。今週のアンケートで応援しよう！
+          </p>
+          {/* 打ち切りの予測と受け取られないように（メンターのフィードバック） */}
+          <p className="mt-2 text-xs text-ink-soft">
+            ※掲載順の変化に気づくための目安です。下がったからといって、打ち切りが決まるわけではありません。
+          </p>
+        </div>
       )}
 
       {/* F-08（発展アイデア①） */}

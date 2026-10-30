@@ -18,9 +18,9 @@ const delaGothic = Dela_Gothic_One({
 });
 
 export const metadata: Metadata = {
-  title: "推しマモ｜推しの連載を打ち切りから守る",
+  title: "推しマモ｜推しの連載を掲載順で見守る応援ナビ",
   description:
-    "推し漫画の掲載順を毎週記録して、打ち切りのピンチに早く気づける応援ナビ。",
+    "推し漫画の掲載順を毎週記録して、順位の変化に早く気づける応援ナビ。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # 推しマモ 開発ルール
 
-好きな連載漫画を打ち切りから守るための、ファンの応援ナビ。
+好きな連載漫画の掲載順を見守り、応援のタイミングを逃さないためのファンの応援ナビ。
 
 @AGENTS.md
 

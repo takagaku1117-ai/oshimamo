@@ -14,7 +14,7 @@ const steps = [
   {
     no: "3",
     title: "ピンチに気づく",
-    body: "2号続けて掲載順が下がったら「ピンチ」ラベルでお知らせ。",
+    body: "2号続けて掲載順が下がったら「ピンチ」ラベルでお知らせ。応援するきっかけの目安です。",
   },
 ];
 
@@ -34,12 +34,14 @@ export default function Home() {
         <h2 className="mb-3 font-display text-2xl leading-snug sm:text-3xl">
           推しの連載を、
           <br />
-          <span className="text-accent">打ち切り</span>から守ろう。
+          <span className="text-accent">掲載順</span>で見守ろう。
         </h2>
         <p className="text-ink-soft">
-          連載が続くかどうかは、読者アンケートの順位などで決まると言われています。
-          掲載順が下がり続けているのは、作品からのSOSかもしれません。
-          推しマモは毎週の掲載順を記録して、ピンチに早く気づけるようにします。
+          連載の続き方には、読者アンケートなどいろいろな要素が関わると言われています。
+          推しマモは毎週の掲載順を記録して、順位の変化に早く気づき、応援のタイミングを逃さないようにします。
+        </p>
+        <p className="mt-3 text-sm font-bold text-ink-soft">
+          ※掲載順はあくまで目安で、打ち切りを予測するものではありません。
         </p>
       </section>
 
